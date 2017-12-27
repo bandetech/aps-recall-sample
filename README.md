@@ -10,7 +10,7 @@ To recall process, add a receive task before task you want to draw back to and s
 
 Sample assumes following workflow.
 
-![sample workflow](https://github.com/bandetech/aps-recall-sample/images/sample-workflow.png)
+![sample workflow](https://github.com/bandetech/aps-recall-sample/blob/master/images/sample-workflow.png)
 
 AppTest sends signal at userTask2 and recall the process to receiveTask.
 
