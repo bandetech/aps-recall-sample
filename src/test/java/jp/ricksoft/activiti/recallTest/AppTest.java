@@ -26,6 +26,11 @@ public class AppTest {
 	@Rule
 	public ActivitiRule activitiRule = new ActivitiRule();
 	
+	/*
+	 * Get Activities
+	 * @param executionId, not {@code null}
+	 * @return List of activities, {@code null} if no activities for executionId.
+	 */
 	private List<String> getActivities(String executionId){
 		
 	    List<String> activities = activitiRule.getRuntimeService().getActiveActivityIds(executionId);
@@ -37,6 +42,12 @@ public class AppTest {
 	    return activities;
 	}
 	
+	/*
+	 * Recall process
+	 * @param currentTask, not {@code null}
+	 * @param toTask, not {@code null}
+	 * @return void
+	 */
 	private void moveToTask(Task currentTask, String toTask){
 	    ProcessEngineConfigurationImpl cfgImpl = (ProcessEngineConfigurationImpl) activitiRule.getProcessEngine().getProcessEngineConfiguration();
 
@@ -56,17 +67,15 @@ public class AppTest {
 		assertNotNull(processInstance);		
 		
 	    // Get Process ID
-	    System.out.println("---- process id :" + processInstance.getId());
+	    logger.info("---- process id :" + processInstance.getId());
 	    
 	    // Get Activity
 	    this.getActivities(processInstance.getId());
 	    
 	    // Get current task list
 	    Task task = this.activitiRule.getTaskService().createTaskQuery().singleResult();
-	    //assertNotNull(task);
-	    //assertEquals("receiveTask", task.getName());
 	    
-	    // Pass receiveTask
+	    // Go through receiveTask
 	    this.activitiRule.getRuntimeService().signal(processInstance.getId());
 	    
 	    // Pass userReview1
